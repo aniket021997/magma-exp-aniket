@@ -1,7 +1,6 @@
 # Ovs 2.15.4 with kernel version 5.15.0.86
 
 ## 1. Bring up ubuntu vm with 22.04 with attached vagrant file
-        [Uploading Vagrantfile…]()
 
 ## 2. Install below dependencies/ pre-requisites
     sudo apt update
@@ -20,16 +19,14 @@
     sudo apt-get install dctrl-tools dkms libcharon-extauth-plugins libelf-dev libstrongswan libstrongswan-standard-plugins strongswan strongswan-charon strongswan-libcharon strongswan-starter zlib1g-dev
     sudo apt-get -y install "linux-headers-$(uname -r)"
 ## 3. run the script pre_build.sh to apply ovs patch for magma agw
-    [Uploading pre_build.sh…]()
-
+    
      mkdir -p /home/vagrant/ovs_deb_pkg                 >  ---> folder, where debian package files will be created.
      sudo bash -x pre_build.sh /home/vagrant/ovs_deb_pkg
 ## 4. ovs 2.15.4 patch for kernel 5.15.x
-     apply attached patch file p1.diff using below command
-         patch -p1 < p1.diff                             --------> run it from the ovs repo folder.
+     apply attached patch file fix-ovs-kernel-5.15.x_diff using below command
+         patch -p1 < fix-ovs-kernel-5.15.x_diff                             --------> run it from the ovs repo folder.
 ## 5. create the ovs debian packages using post_build.sh.
-    [Uploading post_build.sh…]()
-
+    
      sudo bash -x post_build.sh /home/vagrant/ovs_deb_pkg
      remove ovs ipsec debian package file as ovs restart will fail due to this
      rm /home/vagrant/ovs_deb_pkg/openvswitch-ipsec_2.15.4-10-magma_amd64.deb
@@ -51,11 +48,11 @@
          sudo insmod /lib/modules/5.15.0-86-generic/updates/dkms/vport-gtp.ko
          sudo apt-get install linux-modules-extra-$(uname -r)
          sudo modprobe gtp
-   check ovs status
-     sudo systemctl status openvswitch-switch
-   restart ovs before agw installation
-      sudo systemctl stop openvswitch-switch
-      sudo systemctl start openvswitch-switch
+     check ovs status
+         sudo systemctl status openvswitch-switch
+      restart ovs before agw installation
+         sudo systemctl stop openvswitch-switch
+         sudo systemctl start openvswitch-switch
      
 ## 7. steps to install dockerized agw
         mkdir -p /var/opt/magma/certs
