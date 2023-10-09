@@ -1,7 +1,9 @@
 # Ovs 2.15.4 with kernel version 5.15.0.86
 
-#1. Bring up ubuntu vm with 22.04 with attached vagrant file
-#2. Install below dependencies/ pre-requisites
+## 1. Bring up ubuntu vm with 22.04 with attached vagrant file
+        [Uploading Vagrantfile…]()
+
+## 2. Install below dependencies/ pre-requisites
     sudo apt update
     sudo apt install -y build-essential linux-headers-generic
     sudo reboot    ---> to update to the latest kernel version 5.15.0.86 (if required)
@@ -17,13 +19,17 @@
     sudo gem install fpm
     sudo apt-get install dctrl-tools dkms libcharon-extauth-plugins libelf-dev libstrongswan libstrongswan-standard-plugins strongswan strongswan-charon strongswan-libcharon strongswan-starter zlib1g-dev
     sudo apt-get -y install "linux-headers-$(uname -r)"
-4. run the script pre_build.sh to apply ovs patch for magma agw
-     mkdir -p /home/vagrant/ovs_deb_pkg                   ---> folder, where debian package files will be created.
+## 3. run the script pre_build.sh to apply ovs patch for magma agw
+    [Uploading pre_build.sh…]()
+
+     mkdir -p /home/vagrant/ovs_deb_pkg                 >  ---> folder, where debian package files will be created.
      sudo bash -x pre_build.sh /home/vagrant/ovs_deb_pkg
-5. ovs 2.15.4 patch for kernel 5.15.x
+## 4. ovs 2.15.4 patch for kernel 5.15.x
      apply attached patch file p1.diff using below command
-     patch -p1 < p1.diff                             --------> run it from the ovs repo folder.
-6. create the ovs debian packages using post_build.sh.
+         patch -p1 < p1.diff                             --------> run it from the ovs repo folder.
+## 5. create the ovs debian packages using post_build.sh.
+    [Uploading post_build.sh…]()
+
      sudo bash -x post_build.sh /home/vagrant/ovs_deb_pkg
      remove ovs ipsec debian package file as ovs restart will fail due to this
      rm /home/vagrant/ovs_deb_pkg/openvswitch-ipsec_2.15.4-10-magma_amd64.deb
@@ -32,7 +38,7 @@
      sync
      depmod -a
 
-8. To verify ovs is installed with gtp modules and in running state before agw installation.
+## 6. To verify ovs is installed with gtp modules and in running state before agw installation.
      sudo apt list --installed | grep openvs
      sudo ovs-vsctl show
      lsmod | grep gtp
@@ -51,7 +57,7 @@
       sudo systemctl stop openvswitch-switch
       sudo systemctl start openvswitch-switch
      
-9. steps to install dockerized agw
+## 7. steps to install dockerized agw
         mkdir -p /var/opt/magma/certs
         sudo vim /var/opt/magma/certs/rootCA.pem                ----> Add your rootCA.pem obtained from orc8r
         openssl x509 -text -noout -in /var/opt/magma/certs/rootCA.pem
