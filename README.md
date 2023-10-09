@@ -1,7 +1,7 @@
 # Ovs 2.15.4 with kernel version 5.15.0.86
 
-1. Bring up ubuntu vm with 22.04 with attached vagrant file
-2. Install below dependencies/ pre-requisites
+#1. Bring up ubuntu vm with 22.04 with attached vagrant file
+#2. Install below dependencies/ pre-requisites
     sudo apt update
     sudo apt install -y build-essential linux-headers-generic
     sudo reboot    ---> to update to the latest kernel version 5.15.0.86 (if required)
