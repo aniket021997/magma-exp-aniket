@@ -70,17 +70,8 @@
         openssl x509 -text -noout -in /var/opt/magma/certs/rootCA.pem
         - Fetch the Docker Scripts
           wget https://github.com/magma/magma/raw/master/lte/gateway/deploy/agw_install_docker.sh
-        - Rename the interfaces to eth0,eth1 and eth2
-           sudo su
-           sed -i 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0"/g' /etc/default/grub
-           sed -i 's/enp0s3/eth0/g' /etc/netplan/50-cloud-init.yaml
-           grub-mkconfig -o /boot/grub/grub.cfg
-           exit
-           exit
-           vagrant reload distromagma
-           vagrant ssh distromagma
-           sudo chmod 777 agw_install_docker.sh
-           sudo bash agw_install_docker.sh
+          sudo chmod 777 agw_install_docker.sh
+          sudo bash agw_install_docker.sh
            
           - if gtp and vport_gtp modules are not loaded, please run below commands to load the modules
            sudo insmod /lib/modules/5.15.0-86-generic/updates/dkms/vport-gtp.ko
